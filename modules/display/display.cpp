@@ -88,6 +88,8 @@ static void displayCodeWrite( bool type, uint8_t dataBus );
 
 void displayInit( displayConnection_t connection )
 {
+    // En este ejemplo se utiliza interfaz paralelo de 4 bits.
+    // No existen funciones de Lock/Unlock
     display.connection = connection;
     
     initial8BitCommunicationIsCompleted = false;    
@@ -201,6 +203,7 @@ void displayCharPositionWrite( uint8_t charPositionX, uint8_t charPositionY )
 
 void displayStringWrite( const char * str )
 {
+    
     while (*str) {
         displayCodeWrite(DISPLAY_RS_DATA, *str++);
     }
@@ -212,7 +215,7 @@ static void displayCodeWrite( bool type, uint8_t dataBus )
 {
     if ( type == DISPLAY_RS_INSTRUCTION )
         displayPinWrite( DISPLAY_PIN_RS, DISPLAY_RS_INSTRUCTION);
-        else
+    else
         displayPinWrite( DISPLAY_PIN_RS, DISPLAY_RS_DATA);
     displayPinWrite( DISPLAY_PIN_RW, DISPLAY_RW_WRITE );
     displayDataBusWrite( dataBus );
